@@ -3,19 +3,25 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34616.47
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "02_IncDecOperator", "02_IncDecOperator\02_IncDecOperator.csproj", "{1BA2C7CC-5919-4F1A-B20E-84F8C8455E56}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "02_IncDecOperator", "02_IncDecOperator\02_IncDecOperator.csproj", "{1BA2C7CC-5919-4F1A-B20E-84F8C8455E56}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "03_StringConcatenate", "03_StringConcatenate\03_StringConcatenate.csproj", "{E644895C-8056-459E-9C88-81C40219FCC0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "03_StringConcatenate", "03_StringConcatenate\03_StringConcatenate.csproj", "{E644895C-8056-459E-9C88-81C40219FCC0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "01_ArithmeticOperator", "01_ArithmeticOperator\01_ArithmeticOperator.csproj", "{E79067A4-9BAD-4A45-B54E-FF0BF053EE61}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "01_ArithmeticOperator", "01_ArithmeticOperator\01_ArithmeticOperator.csproj", "{E79067A4-9BAD-4A45-B54E-FF0BF053EE61}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "04_RelationalOperator", "04_RelationalOperator\04_RelationalOperator.csproj", "{E0D9415E-27EA-4021-89E1-A28A76A7EBBE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "04_RelationalOperator", "04_RelationalOperator\04_RelationalOperator.csproj", "{E0D9415E-27EA-4021-89E1-A28A76A7EBBE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "05_LogicalOperator", "05_LogicalOperator\05_LogicalOperator.csproj", "{4F15DAD4-6CE1-4BE5-A68F-7E713729A735}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "05_LogicalOperator", "05_LogicalOperator\05_LogicalOperator.csproj", "{4F15DAD4-6CE1-4BE5-A68F-7E713729A735}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "06_ConditionalOperator", "06_ConditionalOperator\06_ConditionalOperator.csproj", "{BD0E103C-C84F-4F29-A62C-365829758E36}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "06_ConditionalOperator", "06_ConditionalOperator\06_ConditionalOperator.csproj", "{BD0E103C-C84F-4F29-A62C-365829758E36}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "07_NullConditionalOperator", "07_NullConditionalOperator\07_NullConditionalOperator.csproj", "{69DABE0C-A55C-4B22-AA47-03FD0F029DFB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "07_NullConditionalOperator", "07_NullConditionalOperator\07_NullConditionalOperator.csproj", "{69DABE0C-A55C-4B22-AA47-03FD0F029DFB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "08_ShiftOperator", "08_ShiftOperator\08_ShiftOperator.csproj", "{55159693-86EB-4B1E-94DA-13C098F723D5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "09_BitwiseOperator", "09_BitwiseOperator\09_BitwiseOperator.csproj", "{2B4D5FC9-4DD9-4ED8-BE34-813F8440019F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "10_AssignmentOperator", "10_AssignmentOperator\10_AssignmentOperator.csproj", "{AE56C5FB-9482-4B97-B2F9-459B27BA1187}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,6 +57,18 @@ Global
 		{69DABE0C-A55C-4B22-AA47-03FD0F029DFB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{69DABE0C-A55C-4B22-AA47-03FD0F029DFB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{69DABE0C-A55C-4B22-AA47-03FD0F029DFB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{55159693-86EB-4B1E-94DA-13C098F723D5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{55159693-86EB-4B1E-94DA-13C098F723D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{55159693-86EB-4B1E-94DA-13C098F723D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{55159693-86EB-4B1E-94DA-13C098F723D5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2B4D5FC9-4DD9-4ED8-BE34-813F8440019F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2B4D5FC9-4DD9-4ED8-BE34-813F8440019F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2B4D5FC9-4DD9-4ED8-BE34-813F8440019F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2B4D5FC9-4DD9-4ED8-BE34-813F8440019F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AE56C5FB-9482-4B97-B2F9-459B27BA1187}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AE56C5FB-9482-4B97-B2F9-459B27BA1187}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AE56C5FB-9482-4B97-B2F9-459B27BA1187}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AE56C5FB-9482-4B97-B2F9-459B27BA1187}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
