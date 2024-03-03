@@ -29,8 +29,9 @@ namespace _04_Switch2
             #region 형식 패턴(Type Pattern)과 케이스 가드(Case Guard)
 
             // 케이스 가드(Case Guard)
-            // - switch 문에서 case 절의 패턴을 더 구체적으로 만들어 주는 추가적인 조건 검사
-            // - case 절의 뒤에 when 절을 붙여 사용
+            // - switch 문에서 case 절의 패턴을 더 구체적으로 만들어 주는 추가적인 조건 검사이다.
+            // - case 절의 뒤에 when 절을 붙여 사용한다.
+            // - if 문처럼 bool 형식의 결과가 나오는 식을 입력받는다.
 
             object o = null;
 
