@@ -298,7 +298,7 @@ namespace _15_PatternMatching
 
             // Ex2. switch 식 위치 패턴 매칭
 
-            var CalculateFee = (Audience audience) => audience switch
+            var CalculateFee2 = (Audience audience) => audience switch
             {
                 (true, < 19) => 100,
                 (true, _) => 200,
@@ -308,11 +308,11 @@ namespace _15_PatternMatching
 
             var a1 = new Audience(true, 10);
             Console.WriteLine(
-                $"내국인: {a1.IsCitizen} 나이: {a1.Age} 요금: {CalculateFee(a1)}");
+                $"내국인: {a1.IsCitizen} 나이: {a1.Age} 요금: {CalculateFee2(a1)}");
 
             var a2 = new Audience(false, 33);
             Console.WriteLine(
-                $"내국인: {a2.IsCitizen} 나이: {a2.Age} 요금: {CalculateFee(a2)}");
+                $"내국인: {a2.IsCitizen} 나이: {a2.Age} 요금: {CalculateFee2(a2)}");
 
             #endregion 5.4.8 Positional Pattern
 
