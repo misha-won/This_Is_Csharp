@@ -55,12 +55,57 @@ namespace _15_PatternMatching
         }
         #endregion 5.4.2 Type Pattern Ex2 Method
 
-        #region 5.4.4 Property Pattern Ex Method
+        #region 5.4.4 Property Pattern Ex Methods
         static string GetNickname(Car car)
         {
-            return "";
+            var GenerateMessage = (Car car, string nickname) =>
+                $"{car.Model} produced in {car.ProducedAt.Year} is {nickname}";
+            if (car is Car { Model: "Mustang", ProducedAt.Year: 1967 })
+                return GenerateMessage(car, "Fastback");
+            else if (car is Car { Model: "Mustang", ProducedAt.Year: 1976 })
+                return GenerateMessage(car, "Cobra II");
+            else
+                return GenerateMessage(car, "Unknown");
         }
-        #endregion 5.4.4 Property Pattern Ex Method
+
+        // VITAMIN QUIZ 5-1
+        // GetNickname() 메서드를 is 연산자 대신 switch 식을 이용해서 다시 구현해 보세요.
+        static string GetNickname2(Car car)
+        {
+            var GenerateMessage = (Car car, string nickname) =>
+                $"{car.Model} produced in {car.ProducedAt.Year} is {nickname}";
+            switch (car)
+            {
+                case Car { Model: "Mustang", ProducedAt.Year: 1967 }:
+                    return GenerateMessage(car, "FastBack");
+                case Car { Model: "Mustang", ProducedAt.Year: 1976 }:
+                    return GenerateMessage(car, "Cobra II");
+                default:
+                    return GenerateMessage(car, "Unknown");
+            }
+        }
+        #endregion 5.4.4 Property Pattern Ex Methods
+
+        #region 5.4.5 Relational Pattern
+
+        // 관계 패턴 매칭
+        // 관계 연산자(>, >=, ==, !=, <, <=)를 이용하여 입력받은 식을 상수와 비교한다.
+
+        static bool IsPassed(double score) => score switch
+        {
+            < 60 => false,
+            _ => true
+        };
+
+        static string GetGrade(double score) => score switch
+        {
+            < 60 => "F",
+            >= 60 and < 70 => "D",
+            >= 70 and < 80 => "C",
+            // 
+        };
+
+        #endregion 5.4.5 Relational Pattern
 
         static void Main(string[] args)
         {
@@ -146,9 +191,23 @@ namespace _15_PatternMatching
             // - 식의 속성이나 필드가 패턴과 일치하는지 검사한다(프로퍼티는 9장에서 자세히 다룬다).
             // - 입력된 식이 int, double 같은 기본 데이터 형식이 아닌 경우에 특히 유용하게 사용한다.
 
-            // ...
+            // Ex. 연도별 머스탱 모델명 찾기
+
+            Console.WriteLine(
+                GetNickname(
+                    new Car() { Model = "Mustang", ProducedAt = new DateTime(1967, 11, 23) }));
+
+            Console.WriteLine(
+                GetNickname(
+                    new Car() { Model = "Mustang", ProducedAt = new DateTime(1976, 6, 7) }));
+
+            Console.WriteLine(
+                GetNickname2(
+                    new Car() { Model = "Mustang", ProducedAt = new DateTime(2099, 12, 25) }));
 
             #endregion 5.4.4 Property Pattern
+
+            
         }
     }
 }
