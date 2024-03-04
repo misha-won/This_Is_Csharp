@@ -39,6 +39,34 @@ namespace _15_PatternMatching
     }
     #endregion 5.4.4 Property Pattern Ex Class
 
+    #region 5.4.6 Logical Pattern Ex Class
+    class OrderItem
+    {
+        public int Amount { get; set; }
+        public int Price { get; set; }
+    }
+    #endregion 5.4.6 Logical Pattern Ex Class
+
+    #region 5.4.8 Positional Pattern Ex2 Struct
+    struct Audience
+    {
+        public bool IsCitizen { get; init; }
+        public int Age { get; init; }
+
+        public Audience(bool isCitizen, int age)
+        {
+            IsCitizen = isCitizen;
+            Age = age;
+        }
+
+        public void Deconstruct(out bool isCitizen, out int age)
+        {
+            isCitizen = IsCitizen;
+            age = Age;
+        }
+    }
+    #endregion 5.4.8 Positional Pattern Ex2 Struct
+
     internal class Program
     {
         #region 5.4.2 Type Pattern Ex2 Method
@@ -102,10 +130,24 @@ namespace _15_PatternMatching
             < 60 => "F",
             >= 60 and < 70 => "D",
             >= 70 and < 80 => "C",
-            // 
+            >= 80 and < 90 => "B",
+            _ => "A"
         };
 
         #endregion 5.4.5 Relational Pattern
+
+        #region 5.4.6 Logical Pattern Ex Method
+        static double GetPrice(OrderItem orderItem) => orderItem switch
+        {
+            OrderItem { Amount: 0 } or OrderItem { Price: 0 }
+                => 0.0,
+            OrderItem { Amount: >= 100 } or OrderItem { Price: >= 10_000 }
+                => orderItem.Amount * orderItem.Price * 0.8,
+            not OrderItem { Amount: < 100 }
+                => orderItem.Amount * orderItem.Price * 0.9,
+            _ => orderItem.Amount * orderItem.Price
+        };
+        #endregion 5.4.6 Logical Pattern Ex Method
 
         static void Main(string[] args)
         {
@@ -207,7 +249,134 @@ namespace _15_PatternMatching
 
             #endregion 5.4.4 Property Pattern
 
-            
+            #region 5.4.6 Logical Pattern
+
+            // 패턴과 패턴을 패턴 논리 연산자(and(결합), or, not)로 조합해서
+            // 하나의 논리 패턴으로 만들 수 있다.
+
+            // Ex. 프로퍼티 패턴과 관계 패턴을 조합한 논리 패턴 매칭
+
+            Console.WriteLine(GetPrice(new OrderItem() { Amount = 0, Price = 10_000 }));
+            Console.WriteLine(GetPrice(new OrderItem() { Amount = 100, Price = 10_000 }));
+            Console.WriteLine(GetPrice(new OrderItem() { Amount = 100, Price = 9_000 }));
+            Console.WriteLine(GetPrice(new OrderItem() { Amount = 1, Price = 1_000 }));
+
+            #endregion 5.4.6 Logical Pattern
+
+            #region 5.4.7 Parenthesized Pattern
+
+            // 괄호 패턴은 소괄호 ()로 패턴을 감싼다.
+            // 보통 논리 패턴으로 여러 패턴을 조합한 뒤 이를 새로운 패턴으로 만드는 경우에 사용한다.
+
+            object age = 30;
+
+            if (age is (int and > 19))
+                Console.WriteLine("Major");
+
+            #endregion 5.4.7 Parenthesized Pattern
+
+            #region 5.4.8 Positional Pattern
+
+            // 위치 패턴
+            // - 식의 결과를 분해(Deconstruct)하고, 분해된 값들이 내장된 복수의 패턴과 일치하는지
+            //   검사한다.
+            // - 안에 내장되는 패턴에는 형식 패턴, 상수 패턴 등 어떤 패턴이든 올 수 있다.
+
+            // ※ 분해된 값들과 내장된 패턴의 개수, 순서가 일치해야 한다.
+
+            // Ex1. 튜플 변수의 위치 패턴 매칭
+
+            Tuple<string, int> itemPrice = new Tuple<string, int>("espresso", 3000);
+
+            if (itemPrice is ("espresso", < 5000))
+            {
+                Console.WriteLine("The coffee is affordable");
+            }
+
+            // 위의 예제에서는 string과 int 요소로 이루어진 튜플 itemPrice를 상수 패턴("espresso")과
+            // 관계 패턴(< 5000)으로 이루어진 위치 패턴으로 매칭하고 있다.
+
+            // Ex2. switch 식 위치 패턴 매칭
+
+            var CalculateFee = (Audience audience) => audience switch
+            {
+                (true, < 19) => 100,
+                (true, _) => 200,
+                (false, < 19) => 200,
+                (false, _) => 400
+            };
+
+            var a1 = new Audience(true, 10);
+            Console.WriteLine(
+                $"내국인: {a1.IsCitizen} 나이: {a1.Age} 요금: {CalculateFee(a1)}");
+
+            var a2 = new Audience(false, 33);
+            Console.WriteLine(
+                $"내국인: {a2.IsCitizen} 나이: {a2.Age} 요금: {CalculateFee(a2)}");
+
+            #endregion 5.4.8 Positional Pattern
+
+            #region 5.4.9 var Pattern
+
+            // var 패턴
+            // - null을 포함한 모든 식의 패턴 매칭을 성공시키고, 그 식의 결과를 변수에 할당한다.
+            // - 어떤 식의 결과를 임시 변수에 할당한 뒤 추가적인 연산을 수행하고자 할 때 유용하다.
+
+            // Ex. 진급/유급 평가
+
+            // 모든 과목이 60점 이상이고, 평균도 60점 이상인 경우에만 Pass
+            var IsPassed =
+                (int[] scores) => scores.Sum() / scores.Length is var average
+                && Array.TrueForAll(scores, (score) => score >= 60)
+                && average >= 60;
+
+            int[] scores1 = { 90, 80, 60, 80, 70 };
+            Console.WriteLine($"{string.Join(",", scores1)}: Pass:{IsPassed(scores1)}");
+
+            int[] scores2 = { 90, 80, 59, 80, 70 };
+            Console.WriteLine($"{string.Join(",", scores2)}: Pass:{IsPassed(scores2)}");
+
+            /* 결과
+            90,80,70,80,70: Pass:True
+            90,80,59,80,70: Pass:False
+            */
+
+            #endregion 5.4.9 var Pattern
+
+            #region 5.4.10 Discard Pattern
+
+            // 무시 패턴
+            // - var 패턴처럼 모든 식과의 패턴 일치 검사를 성공시킨다.
+            // - var 패턴과 달리 is 식에서는 사용할 수 없고, switch 식에서만 사용할 수 있다.
+            // - '모든 식'을 매칭할 수 있기 때문에 switch 문의 default 케이스와 비슷한 용도로
+            //   사용하면 된다.
+            // - _ 기호를 이용한다.
+
+            // Ex. 문자열 리터럴에 대한 상수 패턴 매칭 속의 무시 패턴 매칭
+
+            var GetCountryCode2 = (string nation) => nation switch
+            {
+                "KR" => 82,
+                "US" => 1,
+                "UK" => 44,
+                _ => throw new ArgumentException("Not Supported Code") // 무시 패턴 매칭
+                // 세 개의 상수 "KR", "US", "UK"와 일치하지 않는 모든 식의 값을
+                // _에 매칭시켜 ArgumentException을 던진다.
+            };
+
+            Console.WriteLine(GetCountryCode2("KR"));
+            Console.WriteLine(GetCountryCode2("US"));
+            Console.WriteLine(GetCountryCode2("UK"));
+            Console.WriteLine(GetCountryCode2("JP"));
+
+            #endregion 5.4.10 Discard Pattern
+
+            #region 5.4.11 List Pattern
+
+            // 목록 패턴은 배열이나 리스트(List)에서 패턴의 시퀀스가 일치하는지를 검사한다.
+            // 패턴의 시퀀스는 대괄호의 [와 ] 사이에 패턴의 목록을 입력해서 만든다.
+
+            #endregion 5.4.11 List Pattern
         }
     }
 }
