@@ -78,3 +78,6 @@ namespace _14_Goto
         }
     }
 }
+
+// return 문은 메서드, throw 문은 예외 처리에 대한 배경지식이 필요하므로
+// return 문은 6장에서, throw 문은 13장에서 다룬다.
