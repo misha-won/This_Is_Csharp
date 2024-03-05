@@ -376,6 +376,69 @@ namespace _15_PatternMatching
             // 목록 패턴은 배열이나 리스트(List)에서 패턴의 시퀀스가 일치하는지를 검사한다.
             // 패턴의 시퀀스는 대괄호의 [와 ] 사이에 패턴의 목록을 입력해서 만든다.
 
+            var match = (int[] array) => array is [int, > 10, _];
+
+            Console.WriteLine(match(new int[] { 1, 100, 3 }));      // True
+            Console.WriteLine(match(new int[] { 100, 10, 999 }));   // False
+
+            // 범위 패턴 ..을 함께 사용하면 식으로 입력되는 배열이나 리스트의 길이에 관계없이
+            // 패턴 매칭을 수행할 수 있다.
+
+            var match2 = (int[] array) => array is [int, > 10, ..];
+
+            Console.WriteLine(match2(new int[] { 1, 100, 101, 102, 103, 104 }));    // True
+            Console.WriteLine(match2(new int[] { 100, 10, 999 }));                  // False
+
+            // 목록 패턴은 다량의 데이터를 처리할 때 매우 유용하다.
+            // 특히 파일이나 데이터베이스에서 레코드를 읽어 처리하는 문제에 적합하다.
+
+            var GetStatistics = (List<object[]> records) =>
+            {
+                var statistics = new Dictionary<string, int>();
+
+                foreach (var record in records)
+                {
+                    var (contentType, contentViews) = record switch
+                    {
+                        [_, "COMEDY", .., var views] => ("COMEDY", views),
+                        [_, "SF", .., var views] => ("SF", views),
+                        [_, "ACTION", .., var views] => ("ACTION", views),
+                        [_, .., var amount] => ("ETC", amount),
+                        _ => ("ETC", 0)
+                    };
+
+                    if (statistics.ContainsKey(contentType))
+                        statistics[contentType] += (int)contentViews;
+                    else
+                        statistics.Add(contentType, (int)contentViews);
+                }
+
+                return statistics;
+            };
+
+            List<object[]> MovieRecords = new List<object[]>()
+            {
+                new object[] { 0, "COMEDY", "Spy", 2015, 10_000 },
+                new object[] { 1, "COMEDY", "Scary Movie", 20_000 },
+                new object[] { 2, "SF", "Avengers: Infinite War", 100_000 },
+                new object[] { 3, "COMEDY", "극한직업", 25_000 },
+                new object[] { 4, "SF", "Star Wars: A New Hope", 200_000 },
+                new object[] { 5, "ACTION", "Fast & Furious", 80_000 },
+                new object[] { 6, "DRAMA", "Notting Hill", 1_000 }
+            };
+
+            var statistics = GetStatistics(MovieRecords);
+
+            foreach (var s in statistics)
+                Console.WriteLine($"{s.Key}: {s.Value}");
+
+            /* 결과:
+            COMEDY: 55000
+            SF: 300000
+            ACTION: 80000
+            ETC: 1000
+            */
+
             #endregion 5.4.11 List Pattern
         }
     }
